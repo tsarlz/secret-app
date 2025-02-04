@@ -112,7 +112,9 @@ const Page = () => {
       .select("user_id")
       .or(`user_id.eq.${id}, friend_id.eq.${id}`);
 
-    if (data.length < 1) {
+    // console.log(object);
+
+    if (!isAlreadyFriend(id)) {
       router.push("/404");
       return;
     } else {
