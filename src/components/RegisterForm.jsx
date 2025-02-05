@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const supabase = createClient();
+
 const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const RegisterForm = () => {
     }
 
     const { error } = await supabase.auth.signUp(data);
-
+    // Handles Error Message
     if (error) {
       if (error.message == "Database error saving new user") {
         // Modify the Error Message
@@ -33,6 +34,7 @@ const RegisterForm = () => {
       alert(error.message);
       return;
     }
+
     alert("Confirm your email to login");
     redirect("/login");
   };

@@ -1,8 +1,8 @@
-import SecretMessage from "@/components/SecretMessage";
+import SecretContainer from "@/components/SecretContainer";
 import React from "react";
 
 const Page = () => {
-  return <SecretMessage />;
+  return <SecretContainer />;
 };
 
 export default Page;

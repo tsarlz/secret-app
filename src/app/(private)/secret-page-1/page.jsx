@@ -1,7 +1,7 @@
-import SecretMessage from "@/components/SecretMessage";
+import SecretContainer from "@/components/SecretContainer";
 
 const Page = () => {
-  return <SecretMessage />;
+  return <SecretContainer />;
 };
 
 export default Page;
