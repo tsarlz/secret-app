@@ -1,6 +1,6 @@
 "use client";
 
-import ListPages from "@/components/ListPages";
+import ListPages from "@/components/authPageLists/ListPages";
 import useGetUser from "@/utils/hooks/useGetUser";
 
 const Page = () => {

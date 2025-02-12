@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/forms/LoginForm";
 
 const Page = () => {
   return (

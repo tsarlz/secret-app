@@ -1,9 +1,9 @@
 import "../globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import { redirect } from "next/navigation";
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
-import ListPages from "@/components/ListPages";
+import ListPages from "@/components/authPageLists/ListPages";
 
 const Layout = async ({ children }) => {
   const supabase = await createClient();

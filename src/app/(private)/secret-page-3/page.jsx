@@ -24,7 +24,7 @@ const Page = () => {
       try {
         const [profilesRes, receiverRequestRes, friendListRes, userRequestRes] =
           await Promise.all([
-            supabase.from("profiles").select("id, username").neq("id", user.id), // fetch all profiles expect the logged-in user
+            supabase.from("profiles").select("id, username").neq("id", user.id), // fetch all profiles except the logged-in user
             supabase
               .from("friend_requests")
               .select("id, sender_id")
@@ -60,7 +60,7 @@ const Page = () => {
     async (id) => {
       if (!user) return;
 
-      const { data: insertReq, error: insertReqErr } = await supabase
+      await supabase
         .from("friend_requests")
         .insert([{ sender_id: user.id, receiver_id: id }])
         .select();
@@ -101,7 +101,7 @@ const Page = () => {
 
         setReceiverReq(receiver_requests);
 
-        // The UI or the Requested to Friend
+        // Update the UI or the Requested Friend
         setFriends((prev) => [
           ...prev,
           { user_id: user.id, friend_id: profileId },
