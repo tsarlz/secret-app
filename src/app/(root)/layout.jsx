@@ -2,6 +2,7 @@ import React from "react";
 import "../globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const layout = ({ children }) => {
   return (
