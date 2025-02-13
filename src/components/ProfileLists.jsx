@@ -8,6 +8,7 @@ const ProfileLists = ({
   isAlreadyFriend,
   hasPendingRequest,
 }) => {
+  if (!id) return;
   return (
     <li className="flex justify-between items-center py-3 px-2 shadow shadow-white">
       <h3 className="text-sm font-semibold">{username}</h3>
