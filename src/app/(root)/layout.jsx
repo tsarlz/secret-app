@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <html>
       <body className="bg-gray-100">
@@ -16,4 +16,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;

@@ -2,7 +2,7 @@
 
 import ProfileLists from "@/components/ProfileLists";
 import RequestLists from "@/components/RequestLists";
-import SecretContainer from "@/components/SecretContainer";
+import SecretContainer from "@/components/secretMessage/SecretContainer";
 import useGetUser from "@/utils/hooks/useGetUser";
 
 import { createClient } from "@/utils/supabase/client";
@@ -19,7 +19,7 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) return; // to prevent the error prevent the first render
+    if (!user || !user.id) return; // to prevent the error prevent the first render
     async function fetchData() {
       try {
         const [profilesRes, receiverRequestRes, friendListRes, userRequestRes] =
@@ -54,7 +54,7 @@ const Page = () => {
       }
     }
     fetchData();
-  }, [user]);
+  }, [user, supabase, requests]);
 
   const handleAddFriend = useCallback(
     async (id) => {
@@ -67,7 +67,7 @@ const Page = () => {
 
       setRequests((prev) => [...prev, { sender_id: user.id, receiver_id: id }]);
     },
-    [user, supabase]
+    [user]
   );
 
   const handleAcceptReq = useCallback(
@@ -99,7 +99,12 @@ const Page = () => {
           .eq("receiver_id", user.id)
           .eq("status", "pending");
 
-        setReceiverReq(receiver_requests);
+        if (receiverIdErr) {
+          console.log(receiverIdErr.message);
+          return;
+        }
+
+        setReceiverReq(receiver_requests || []);
 
         // Update the UI or the Requested Friend
         setFriends((prev) => [
@@ -126,6 +131,7 @@ const Page = () => {
 
   const isAlreadyFriend = useCallback(
     (profileId) => {
+      if (!user) return;
       return friends.some(
         (friend) =>
           (friend.user_id === user.id && friend.friend_id === profileId) ||
@@ -134,16 +140,13 @@ const Page = () => {
     },
     [user, friends]
   );
-  const hasPendingRequest = useCallback(
-    (profileId) => {
-      return requests.some(
-        (req) =>
-          (req.sender_id === user.id && req.receiver_id === profileId) ||
-          (req.sender_id === profileId && req.receiver_id === user.id)
-      );
-    },
-    [requests, user]
-  );
+  const hasPendingRequest = (profileId) => {
+    return requests.some(
+      (req) =>
+        (req.sender_id === user.id && req.receiver_id === profileId) ||
+        (req.sender_id === profileId && req.receiver_id === user.id)
+    );
+  };
 
   return (
     <div>
@@ -154,11 +157,12 @@ const Page = () => {
         <ul className="space-y-4">
           {profiles.length ? (
             profiles.map((profile) => {
+              if (!profile) return null;
               return (
                 // Import the List of profiles
                 <ProfileLists
                   key={profile.id}
-                  id={profile.id}
+                  id={profile?.id}
                   username={profile?.username}
                   handleAddFriend={handleAddFriend}
                   handleViewMessage={handleViewMessage}
@@ -176,7 +180,7 @@ const Page = () => {
       <section className="mt-5 bg-gray-600 p-5 text-white">
         <h3 className="text-md font-bold mb-4">Request List:</h3>
         <ul className="space-y-4">
-          {receiverReq.length && user ? (
+          {receiverReq.length > 0 && user ? (
             receiverReq.map((req) => {
               // Find the profile that own the request
               const profile = profiles.find(

@@ -1,5 +1,4 @@
-import SecretContainer from "@/components/SecretContainer";
-import React from "react";
+import SecretContainer from "@/components/secretMessage/SecretContainer";
 
 const Page = () => {
   return <SecretContainer />;
