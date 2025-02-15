@@ -88,11 +88,8 @@ const useRegister = () => {
           return;
         }
 
-        // Store email in sessionStorage before redirecting
-        sessionStorage.setItem("registeredEmail", data.email);
-
-        toast.success("Registration successful! You can now log in.");
-        router.push("/login");
+        toast.success("Registration successful!");
+        router.push("/");
       } else {
         // If user exist
 

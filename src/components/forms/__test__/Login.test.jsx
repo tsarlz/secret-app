@@ -13,11 +13,7 @@ jest.mock("../../../utils/hooks/useLogin", () => ({
 }));
 
 jest.mock("../../../utils/supabase/client", () => ({
-  createClient: jest.fn(() => ({
-    auth: {
-      signInWithPassword: jest.fn(),
-    },
-  })),
+  createClient: jest.fn(),
 }));
 
 describe("Login Form", () => {

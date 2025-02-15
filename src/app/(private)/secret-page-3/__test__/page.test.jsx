@@ -2,20 +2,15 @@ import SecretContainer from "@/components/secretMessage/SecretContainer";
 import SecretMessage from "@/components/secretMessage/SecretMessage";
 import useGetUser from "@/utils/hooks/useGetUser";
 import "@testing-library/jest-dom";
-import { findByText, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { usePathname } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import Page from "../page";
-import { useRouter } from "next/navigation";
+
 import ProfileLists from "@/components/ProfileLists";
 
 jest.mock("../../../../utils/supabase/client", () => ({
-  createClient: jest.fn(() => ({
-    auth: {
-      signInWithPassword: jest.fn(),
-    },
-  })),
+  createClient: jest.fn(),
 }));
 
 // Mock the useGetUser hook

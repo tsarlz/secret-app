@@ -41,7 +41,7 @@ describe("Register Form ", () => {
   });
 
   describe("Register Form Behavior", () => {
-    it("should display error message when invalid inputs are  submitted ", async () => {
+    it("should display error message when invalid inputs are submitted ", async () => {
       // Mock the hook behavior
       useRegister.mockReturnValue({
         handleRegister: jest.fn((e) => e.preventDefault()),
